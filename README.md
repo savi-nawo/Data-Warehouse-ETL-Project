@@ -1,112 +1,128 @@
 
-# Data-Warehouse-ETL-Project
-A data warehousing project built using SQL Server, SSIS, and Visual Studio.
+---
+
+## 🧾 Selected Dataset
+
+**Project Theme**: *General Hospital Management System*  
+A simulated OLTP dataset capturing transactional and operational data across various hospital entities such as:
+
+- Patients (Demographics)
+- Encounters (Visits)
+- Accounts (Financials)
+- Physicians and Departments
+- Hospitals and Branches
+- Orders and Clinical Results
+
+🟢 Data covers ~1 year and supports ETL, dimensional modeling, and OLAP use cases.
 
 ---
 
-## 🔎 Project Tasks Breakdown
+## 🧬 Data Sources
 
-### ✅ Step 1: Dataset Selection
-- Selected a custom **OLTP dataset** (not OLAP or AdventureWorks).
-- Dataset includes **customer**, **order**, and **product** data.
-- Covers approx. **one year** of transactions (augmented with generated meaningful records).
-- Ensures support for:
-  - Multiple data sources
-  - Rich ETL flows
-  - Hierarchies and dimensions
-  - Cube aggregation
-  - Report generation
+Two types of data sources were used to simulate real-world integration:
 
-📌 *ER Diagram and dataset description are included in the PDF report.*
+- **Source 1 – Flat File (CSV)**  
+  `Patients.csv`: Simulates an external intake system  
+  Contains: PatientID, Name, DOB, Gender, Address, etc.
+
+- **Source 2 – SQL Server Database**  
+  `GeneralHospital DB`: Includes Encounters, Departments, Hospitals, Accounts, etc.
+
+This multi-source setup allowed demonstration of **ETL pipelines**, **lookups**, and **cleansing**.
 
 ---
 
-### ✅ Step 2: Data Source Preparation
-- Organized data into **two source types**:
-  - **Customer data** in CSV/Text format
-  - **Order and transactional data** in SQL tables
-- Introduced additional fields such as **product categories** and **hierarchies** for enriched analysis.
+## 🏗️ Solution Architecture
 
-📌 *Source descriptions and file formats are documented in the report.*
-
----
-
-### ✅ Step 3: Solution Architecture
-- Designed a high-level architecture including:
-  - Source layer
-  - Staging area
-  - ETL pipeline
-  - Data warehouse layer (fact + dimensions)
-  - BI/reporting layer
-
-📌 *Architecture diagram and component explanation provided in the report.*
+| Component        | Description |
+|------------------|-------------|
+| **Source Systems** | CSV and SQL Server OLTP |
+| **ETL Layer**     | SSIS for extract-transform-load |
+| **Staging DB**    | Intermediate cleaned/raw tables |
+| **Data Warehouse**| Snowflake schema with Dim & Fact tables |
+| **OLAP Layer**    | SSAS Cube (for hierarchies, KPIs, drill-downs) |
+| **BI Tools**      | Power BI / SSRS for reporting and dashboards |
 
 ---
 
-### ✅ Step 4: Data Warehouse Design & Development
-- Developed a **dimensional model** using **Star Schema**:
-  - At least **two custom dimensions** (e.g., Product, Customer)
-  - **Date dimension**
-  - **One fact table** (e.g., Sales Fact)
-  - **Slowly Changing Dimension (SCD Type 2)** handled
+## 🗃️ Data Warehouse Design
 
-- Implemented schema in SQL Server using **SSMS**.
+A **Snowflake Schema** centered on the `FactEncounters` table was developed. Dimensions include:
 
-📌 *Relational diagrams and design assumptions are included in the PDF.*
+- **DimPatient** *(SCD Type 2)*
+- **DimDepartment**
+- **DimHospital**
+- **DimDate**
 
----
-
-### ✅ Step 5: ETL Process (SSIS)
-- Built ETL pipeline using **SQL Server Integration Services (SSIS)**:
-  - Extracted data from both CSV and SQL sources
-  - Applied transformations (lookups, derived columns, data conversions)
-  - Loaded data into warehouse schema
-
-📌 *Step-by-step ETL task flow is documented in the report with screenshots.*
+🔧 **Design Highlights**:
+- Surrogate keys for all dimensions
+- Patient info supports version tracking (SCD2)
+- Department-Hospital foreign key for integrity
+- Date dimension pre-generated (1+ years)
 
 ---
 
-### ✅ Step 6: Accumulating Fact Table Handling
-- Extended fact table with:
-  - `accm_txn_create_time`
-  - `accm_txn_complete_time`
-  - `txn_process_time_hours`
-  
-- Created a **second ETL package** to:
-  - Update the `accm_txn_complete_time` using a separate data source (CSV or table)
-  - Calculate `txn_process_time_hours` dynamically
+## ⚙️ ETL Process (SSIS)
 
-📌 *ETL logic, update strategy, and transformation steps are explained in the report.*
+Built with **SSIS**, the ETL pipeline includes:
 
----
+### 🔄 Extraction
+- Flat File Source for `Patients.csv`
+- OLE DB Source for `Encounters`, `Departments`, `Accounts`
 
-## 🧠 Key Features
+### 🧼 Transformation
+- Data type conversion (e.g., DT_WSTR to DT_STR)
+- Derived columns to clean IDs and normalize text
+- Lookups to retrieve surrogate keys
+- Merge Joins (e.g., Encounters + Accounts)
+- Handling **Slowly Changing Dimensions (SCD Type 2)** using conditional splits and update flows
 
-- 📁 Multi-source data integration
-- 📊 Star schema with dimensional modeling
-- ⚙️ SSIS-based ETL pipelines
-- 🕒 Handling of accumulating fact tables
-- 🧮 Support for reporting and aggregation
-- 🗃️ Type 2 SCD implementation
-- 📷 Detailed documentation and screenshots
+### 📥 Loading
+- Dim tables loaded in order: `Date → Hospital → Department → Patient`
+- `FactEncounters` loaded with keys and computed metrics (e.g., Length of Stay, Financials)
 
 ---
 
-## 📚 Academic Context
+## 🕒 Accumulating Fact Table Handling
 
-| Field          | Details                                           |
-|----------------|---------------------------------------------------|
-| Module         | IT3021 – Data Warehousing and Business Intelligence |
-| Program        | BSc (Hons) in Information Technology – Data Science |
-| Institution    | [Your Campus Name Here]                           |
-| Semester       | Semester 1, 2025                                  |
+To simulate delayed updates:
+
+- `accm_txn_create_time`: Set during initial load using `GETDATE()`
+- `accm_txn_complete_time`: Updated later via separate ETL job
+- `txn_process_time_hours`: Calculated using `DATEDIFF`
+
+SSIS pipeline included:
+- Derived Column for timestamps
+- SQL-based `OLE DB Command` to perform updates
 
 ---
 
-## 👩‍💻 Author
+## 📊 Key Capabilities Demonstrated
 
-**Savindi Abeykoon**  
-[LinkedIn](https://www.linkedin.com/in/yourprofile) | [GitHub](https://github.com/yourusername)
+✅ Multi-source data ingestion  
+✅ Snowflake schema modeling  
+✅ Surrogate key management  
+✅ Lookup and transformation in SSIS  
+✅ Slowly Changing Dimensions (Type 2)  
+✅ Accumulating fact table updates  
+✅ Staging & intermediate validation  
+✅ Clean documentation with screenshots  
+
+---
+
+## 📈 Reporting & OLAP Support
+
+Though not implemented in detail in this phase, the model supports future expansion via:
+- **SSAS Cubes** (for rollups, KPIs, drill-downs)
+- **Power BI Dashboards** (for hospital analytics)
+- **Excel PivotTables** (for ad hoc insights)
+
+---
+
+
+## 📜 License
+
+This project is created for academic demonstration purposes and portfolio development. Reuse permitted with attribution.
 
 ---
 
