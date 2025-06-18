@@ -1,4 +1,7 @@
 
+# Data-Warehouse-ETL-Project
+A data warehousing project built using SQL Server, SSIS, and Visual Studio.
+
 ---
 
 ## 🔎 Project Tasks Breakdown
@@ -107,8 +110,3 @@
 
 ---
 
-## 📜 License
-
-This repository is intended for academic and personal learning use. Attribution appreciated.  
-# Data-Warehouse-ETL-Project
-A data warehousing project built using SQL Server, SSIS, and Visual Studio.
