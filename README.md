@@ -1,3 +1,33 @@
+---
+## Data-Warehouse-ETL-Project
+
+A data warehousing project built using SQL Server, SSIS, and Visual Studio.
+
+---
+
+## 📁 Project Overview
+
+The aim of this project was to:
+
+- Select a real-world OLTP dataset
+- Design and implement a dimensional data warehouse model
+- Perform ETL (Extract, Transform, Load) using **SSIS**
+- Handle accumulating fact tables
+- Demonstrate BI capabilities using SQL Server tools
+
+---
+
+## 🧰 Tools & Technologies
+
+- **SQL Server Management Studio (SSMS)**
+- **SQL Server Integration Services (SSIS)**
+- **Visual Studio**
+- **CSV/Text/Excel Data Files**
+- **Star/Snowflake Schema**
+- **Dimensional Modelling & Slowly Changing Dimensions**
+
+---
+
 ## 💾 Project Database File
 
 A complete backup of the SQL Server database used in this project is available for download:  
