@@ -77,6 +77,8 @@ This multi-source setup allowed demonstration of **ETL pipelines**, **lookups**,
 | **OLAP Layer**    | SSAS Cube (for hierarchies, KPIs, drill-downs) |
 | **BI Tools**      | Power BI / SSRS for reporting and dashboards |
 
+![Screenshot](Screenshots/SolutionArchitecture.png)
+
 ---
 
 ## 🗃️ Data Warehouse Design
