@@ -68,6 +68,9 @@ This multi-source setup allowed demonstration of **ETL pipelines**, **lookups**,
 
 ## 🏗️ Solution Architecture
 
+![Screenshot](Screenshots/SolutionArchitecture.png)
+
+
 | Component        | Description |
 |------------------|-------------|
 | **Source Systems** | CSV and SQL Server OLTP |
@@ -76,8 +79,6 @@ This multi-source setup allowed demonstration of **ETL pipelines**, **lookups**,
 | **Data Warehouse**| Snowflake schema with Dim & Fact tables |
 | **OLAP Layer**    | SSAS Cube (for hierarchies, KPIs, drill-downs) |
 | **BI Tools**      | Power BI / SSRS for reporting and dashboards |
-
-![Screenshot](Screenshots/SolutionArchitecture.png)
 
 ---
 
