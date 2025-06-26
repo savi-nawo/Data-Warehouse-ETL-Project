@@ -68,6 +68,7 @@ This multi-source setup allowed demonstration of **ETL pipelines**, **lookups**,
 
 ## 🏗️ Solution Architecture
 
+
 ![Screenshot](Screenshots/SolutionArchitecture.png)
 
 
