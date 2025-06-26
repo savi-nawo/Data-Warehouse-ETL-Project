@@ -145,6 +145,9 @@ To simulate delayed updates:
 - `accm_txn_complete_time`: Updated later via separate ETL job
 - `txn_process_time_hours`: Calculated using `DATEDIFF`
 
+  ![Screenshot](Screenshots/Accumilating.png)
+
+
 SSIS pipeline included:
 - Derived Column for timestamps
 - SQL-based `OLE DB Command` to perform updates
