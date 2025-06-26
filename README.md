@@ -68,7 +68,7 @@ This multi-source setup allowed demonstration of **ETL pipelines**, **lookups**,
 
 ## 🏗️ Solution Architecture
 
-![Screenshot](Screenshots/SolutionArchitecture.png)
+![Screenshot](Screenshots/Data_WH_Design.png)
 
 
 | Component        | Description |
@@ -90,6 +90,9 @@ A **Snowflake Schema** centered on the `FactEncounters` table was developed. Dim
 - **DimDepartment**
 - **DimHospital**
 - **DimDate**
+
+  ![Data WareHouse Design](Screenshots/Staging.png)
+
 
 🔧 **Design Highlights**:
 - Surrogate keys for all dimensions
@@ -130,6 +133,8 @@ Before transformation, extracted data was loaded into staging tables in the SQL 
 - Dim tables loaded in order: `Date → Hospital → Department → Patient`
 - `FactEncounters` loaded with keys and computed metrics (e.g., Length of Stay, Financials)
 
+![Data Warehouse Layer Overview](Screenshots/DataWH.png)
+
 ---
 
 ## 🕒 Accumulating Fact Table Handling
@@ -159,19 +164,11 @@ SSIS pipeline included:
 
 ---
 
-## 📈 Reporting & OLAP Support
-
-Though not implemented in detail in this phase, the model supports future expansion via:
-- **SSAS Cubes** (for rollups, KPIs, drill-downs)
-- **Power BI Dashboards** (for hospital analytics)
-- **Excel PivotTables** (for ad hoc insights)
-
----
 
 
 ## 📜 License
 
-This project is created for academic demonstration purposes and portfolio development. Reuse permitted with attribution.
+This project is created for academic demonstration purposes. Reuse permitted with attribution.
 
 ---
 
