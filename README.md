@@ -146,7 +146,7 @@ To simulate delayed updates:
 - `accm_txn_complete_time`: Updated later via separate ETL job
 - `txn_process_time_hours`: Calculated using `DATEDIFF`
 
-  ![Screenshot](Screenshots/Accumilating.png)
+  ![Screenshot](Screenshots/AccumilatingFact.png)
 
 
 SSIS pipeline included:
