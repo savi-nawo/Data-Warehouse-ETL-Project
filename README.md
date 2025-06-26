@@ -68,7 +68,7 @@ This multi-source setup allowed demonstration of **ETL pipelines**, **lookups**,
 
 ## 🏗️ Solution Architecture
 
-![Screenshot](Screenshots/Data_WH_Design.png)
+![Screenshot](Screenshots/SolutionArchitecture.png)
 
 
 | Component        | Description |
@@ -91,7 +91,7 @@ A **Snowflake Schema** centered on the `FactEncounters` table was developed. Dim
 - **DimHospital**
 - **DimDate**
 
-  ![Data WareHouse Design](Screenshots/Staging.png)
+  ![Data WareHouse Design](Screenshots/Data_WH_Design.png)
 
 
 🔧 **Design Highlights**:
