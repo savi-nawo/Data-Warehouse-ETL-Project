@@ -108,6 +108,18 @@ Built with **SSIS**, the ETL pipeline includes:
 - OLE DB Source for `Encounters`, `Departments`, `Accounts`
 
 ### 🧼 Transformation
+
+Once data was extracted from both source systems (CSV and SQL Server), it was routed through the staging layer and transformed to fit the data warehouse structure. Staging tables acted as an intermediate repository for raw but structured data, enabling easier debugging, reloading, and transformation logic.
+
+Before transformation, extracted data was loaded into staging tables in the SQL Server database. These included:
+- StgPatients
+- StgDepartments
+- StgHospitals
+- StgEncounters
+- StgAccounts
+
+![Staging Layer Overview](Screenshots/Staging.png)
+
 - Data type conversion (e.g., DT_WSTR to DT_STR)
 - Derived columns to clean IDs and normalize text
 - Lookups to retrieve surrogate keys
